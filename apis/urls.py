@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from vuetest.views import getNewList
+from vuetest.views import IndexView,GetNewsListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('getnewslist/',getNewList,name="newlist"),
+    path(r'getnewslist/',GetNewsListView.as_view(),name="newlist"),
+    path('index/',IndexView.as_view(),name="index"),
 ]

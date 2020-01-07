@@ -6,9 +6,25 @@
 </head>
 <body>
 <form method="post" action="/getnewslist/">
-    <button type="submit"></button>
+   <button type="submit" id="bt1" > GetData</button>
 
      {% csrf_token %}
 </form>
+
+
 </body>
+<script language="JavaScript">
+     $("#bt1").click(function() {
+      $.ajax({
+        url: '/getnewslist/',
+        data:{},
+        type: 'GET',
+        dataType: 'json',
+        success: function (data, textStatus) {
+            console.log(data);
+        },
+      });
+    });
+
+</script>
 </html>

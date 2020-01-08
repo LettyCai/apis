@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from django.http import JsonResponse,HttpResponse
+from django.http import HttpResponse
 from django.views import View
 from .models import News
 import json
-from django.core import serializers
-from django.core.serializers.json import DjangoJSONEncoder
 
 # Create your views here.
 
@@ -12,15 +10,21 @@ class IndexView(View):
     def get(self,request):
         return render(request,"index.html")
 
-class GetNewsListView(View):
-    def get(self,request):
 
-        temp_output = serializers.serialize('python', News.objects.all(),ensure_ascii=False)
-        temp_output = json.dumps(temp_output,ensure_ascii=False,cls=DjangoJSONEncoder)
+def getNewslist(request):
 
-        print(temp_output)
+    list = []
+    newslist = News.objects.all()
+    for new in newslist:
+        list.append({"title":new.title,
+                     "time":str(new.add_time),
+                     "click":new.click,
+                     "url":new.img_url})
 
-        return HttpResponse(temp_output, content_type="application/json")
+    result = {"status": 0}
+    result["message"]=list
+
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 

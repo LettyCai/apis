@@ -19,7 +19,8 @@ def getNewslist(request):
         list.append({"title":new.title,
                      "time":str(new.add_time),
                      "click":new.click,
-                     "url":new.img_url})
+                     "url":"http://127.0.0.1:8000/static/"+new.img.url})
+        print(new.img.url)
 
     result = {"status": 0}
     result["message"]=list

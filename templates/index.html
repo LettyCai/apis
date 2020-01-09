@@ -10,11 +10,15 @@
    <button type="button" id="bt1" > GetData</button>
  {% csrf_token %}
 </form>
+<div>
+
+        {{ data }}
+
+</div>
 
 </body>
 <script language="JavaScript">
      $("#bt1").click(function() {
-         alert("msg");
       $.ajax({
         url: '/getnewslist/',
         data:{},

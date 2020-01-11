@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from .models import News
+from .models import News,NewsDetail
 import json
 
 # Create your views here.
@@ -19,13 +19,24 @@ def getNewslist(request):
         list.append({"title":new.title,
                      "time":str(new.add_time),
                      "click":new.click,
-                     "url":"http://127.0.0.1:8000/static/"+new.img.url})
-        print(new.img.url)
+                     "url":"http://127.0.0.1:8000/"+new.img.url
+                     })
 
     result = {"status": 0}
     result["message"]=list
 
     return HttpResponse(json.dumps(result), content_type="application/json")
+
+class getNewView(View):
+    def get(self,request,id):
+        print(id)
+
+        #news_detail = list(NewsDetail.objects.filter(id=id))
+
+        result = {"status": 0}
+        #result["message"] = news_detail
+
+        return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 

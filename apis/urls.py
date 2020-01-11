@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from vuetest.views import IndexView,getNewslist
+from django.urls import path,re_path
+from vuetest.views import IndexView,getNewslist,getNewView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'getnewslist/',getNewslist,name="newlist"),
     path('index/',IndexView.as_view(),name="index"),
-    path('/',IndexView.as_view(),name="index"),
+    re_path(r'getnew(?P<id>.*)/$', getNewView.as_view(),name="getnew"),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
